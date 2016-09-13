@@ -17,7 +17,7 @@
 package com.trevjonez.daggertest.application;
 
 import com.trevjonez.daggertest.dagger_base_types.PlainComponent;
-import com.trevjonez.daggertest.main_activity.MainActivityComponent;
+import com.trevjonez.daggertest.main_activity.MainActivityBindingModule;
 
 import javax.inject.Singleton;
 
@@ -27,12 +27,5 @@ import dagger.Component;
  * @author TrevJonez
  */
 @Singleton
-@Component(modules = {ActivityBindingModule.class})
-public interface AppComponent extends PlainComponent<Application> {
-
-    /**
-     * TODO Remove this once dagger2 supports doing things without it
-     * This is required in order to get dagger to actually create the sub-component code
-     */
-    MainActivityComponent.Builder mainActivityComponentBuilder();
-}
+@Component(modules = {MainActivityBindingModule.class})
+public interface AppComponent extends PlainComponent<Application> { }
