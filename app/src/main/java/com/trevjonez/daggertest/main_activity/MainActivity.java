@@ -20,33 +20,18 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
 import com.trevjonez.daggertest.R;
-import com.trevjonez.daggertest.dagger_base_types.ActivityComponentBuilder;
-import com.trevjonez.daggertest.dagger_base_types.ComponentBuilderHost;
-
-import javax.inject.Inject;
-import javax.inject.Named;
+import com.trevjonez.daggertest.dagger_base_types.ActivityComponentBuilderHost;
 
 public class MainActivity extends AppCompatActivity {
 
-    @Inject
-    @Named("ScopedData")
-    String scopedData;
+    MainActivityComponent component;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        injectViaMultiBoundMap();
-    }
-
-    private void injectViaMultiBoundMap() {
-
-        //Using the base interface here because of type inference failure if we make it a MainActivityComponent.Builder
-        ActivityComponentBuilder<MainActivity, MainActivityModule, MainActivityComponent> builder = ((ComponentBuilderHost) getApplication()).getComponentBuilder(MainActivity.class);
-        builder.module(new MainActivityModule("Some data from the intent extras most likely. Use Dart & Henson https://github.com/f2prateek/dart"));
-
-        MainActivityComponent component = builder.build();
+        component = ((ActivityComponentBuilderHost) getApplication()).getComponentBuilder(MainActivity.class, MainActivityComponent.Builder.class).build();
         component.inject(this);
     }
 }

@@ -17,7 +17,7 @@
 package com.trevjonez.daggertest.application;
 
 import com.trevjonez.daggertest.dagger_base_types.PlainComponent;
-import com.trevjonez.daggertest.main_activity.MainActivityBindingModule;
+import com.trevjonez.daggertest.main_activity.AppScopeActivityBinders;
 
 import javax.inject.Singleton;
 
@@ -27,5 +27,5 @@ import dagger.Component;
  * @author TrevJonez
  */
 @Singleton
-@Component(modules = {MainActivityBindingModule.class})
+@Component(modules = {AppScopeActivityBinders.class})
 public interface AppComponent extends PlainComponent<Application> { }

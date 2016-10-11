@@ -21,7 +21,7 @@ import android.app.Activity;
 /**
  * @author TrevJonez
  */
-public interface ComponentBuilderHost {
+public interface ActivityComponentBuilderHost {
 
-    <ActivityType extends Activity, ModuleType, ComponentType> ActivityComponentBuilder<ActivityType, ModuleType, ComponentType> getComponentBuilder(Class<? extends ActivityType> key);
+    <ActivityType extends Activity, ComponentBuilderType extends ActivityComponentBuilder> ComponentBuilderType getComponentBuilder(Class<? extends ActivityType> key, Class<? extends ComponentBuilderType> builderType);
 }

@@ -21,9 +21,6 @@ import android.app.Activity;
 /**
  * @author TrevJonez
  */
-public interface ActivityComponentBuilder<ActivityType extends Activity, ModuleType, ComponentType> {
-
-    ActivityComponentBuilder<ActivityType, ModuleType, ComponentType> module(ModuleType module);
-
+public interface ActivityComponentBuilder<ActivityType extends Activity, ComponentType extends PlainComponent<ActivityType>> {
     ComponentType build();
 }

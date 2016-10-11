@@ -27,10 +27,10 @@ import dagger.multibindings.IntoMap;
  * @author TrevJonez
  */
 @Module(subcomponents = {MainActivityComponent.class})
-public abstract class MainActivityBindingModule {
+public abstract class AppScopeActivityBinders {
 
     @Binds
     @IntoMap
     @ActivityKey(MainActivity.class)
-    public abstract ActivityComponentBuilder<?, ?, ?> componentBuilder(MainActivityComponent.Builder impl);
+    public abstract ActivityComponentBuilder componentBuilder(MainActivityComponent.Builder impl);
 }

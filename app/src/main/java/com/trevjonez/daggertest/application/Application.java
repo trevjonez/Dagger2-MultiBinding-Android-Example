@@ -19,21 +19,22 @@ package com.trevjonez.daggertest.application;
 import android.app.Activity;
 
 import com.trevjonez.daggertest.dagger_base_types.ActivityComponentBuilder;
-import com.trevjonez.daggertest.dagger_base_types.ComponentBuilderHost;
+import com.trevjonez.daggertest.dagger_base_types.ActivityComponentBuilderHost;
 
 import java.util.Map;
 
 import javax.inject.Inject;
+import javax.inject.Provider;
 
 /**
  * @author TrevJonez
  */
-public class Application extends android.app.Application implements ComponentBuilderHost {
+public class Application extends android.app.Application implements ActivityComponentBuilderHost {
 
     AppComponent appComponent;
 
     @Inject
-    Map<Class<? extends Activity>, ActivityComponentBuilder<?, ?, ?>> componentBuilders;
+    Map<Class<? extends Activity>, Provider<ActivityComponentBuilder>> componentBuilders;
 
     @Override
     public void onCreate() {
@@ -44,8 +45,7 @@ public class Application extends android.app.Application implements ComponentBui
     }
 
     @Override
-    public <ActivityType extends Activity, ModuleType, ComponentType> ActivityComponentBuilder<ActivityType, ModuleType, ComponentType> getComponentBuilder(Class<? extends ActivityType> key) {
-        //noinspection unchecked
-        return (ActivityComponentBuilder<ActivityType, ModuleType, ComponentType>) this.componentBuilders.get(key);
+    public <ActivityType extends Activity, ComponentBuilderType extends ActivityComponentBuilder> ComponentBuilderType getComponentBuilder(Class<? extends ActivityType> key, Class<? extends ComponentBuilderType> builderType) {
+        return builderType.cast(componentBuilders.get(key).get());
     }
 }

@@ -24,10 +24,10 @@ import dagger.Subcomponent;
 /**
  * @author TrevJonez
  */
+@Subcomponent
 @MainActivityScope
-@Subcomponent(modules = {MainActivityModule.class})
 public interface MainActivityComponent extends PlainComponent<MainActivity> {
 
     @Subcomponent.Builder
-    interface Builder extends ActivityComponentBuilder<MainActivity, MainActivityModule, MainActivityComponent> { }
+    interface Builder extends ActivityComponentBuilder<MainActivity, MainActivityComponent> { }
 }
