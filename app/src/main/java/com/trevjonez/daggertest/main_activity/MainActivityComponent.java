@@ -16,8 +16,8 @@
 
 package com.trevjonez.daggertest.main_activity;
 
-import com.trevjonez.daggertest.dagger_base_types.ActivityComponentBuilder;
-import com.trevjonez.daggertest.dagger_base_types.PlainComponent;
+import com.trevjonez.inject.PlainComponent;
+import com.trevjonez.inject.activity.ActivityComponentBuilder;
 
 import dagger.Subcomponent;
 

@@ -14,23 +14,25 @@
  *    limitations under the License.
  */
 
-package com.trevjonez.daggertest.dagger_base_types;
+package com.trevjonez.daggertest.application;
 
-import android.app.Activity;
+import com.trevjonez.daggertest.main_activity.MainActivity;
+import com.trevjonez.daggertest.main_activity.MainActivityComponent;
+import com.trevjonez.inject.activity.ActivityComponentBuilder;
+import com.trevjonez.inject.activity.ActivityKey;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
-
-import dagger.MapKey;
+import dagger.Binds;
+import dagger.Module;
+import dagger.multibindings.IntoMap;
 
 /**
  * @author TrevJonez
  */
-@MapKey
-@Target({ElementType.METHOD})
-@Retention(RetentionPolicy.RUNTIME)
-public @interface ActivityKey {
-    Class<? extends Activity> value();
+@Module(subcomponents = {MainActivityComponent.class})
+abstract class AppScopeActivityBinder {
+
+    @Binds
+    @IntoMap
+    @ActivityKey(MainActivity.class)
+    abstract ActivityComponentBuilder componentBuilder(MainActivityComponent.Builder impl);
 }

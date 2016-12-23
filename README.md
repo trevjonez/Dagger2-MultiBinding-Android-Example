@@ -5,24 +5,22 @@ This attempts to add sub component builders to an application via the
 
 This is made possible by the new `@Module(subcomponents = {...})` mechanism in dagger 2.7
 
+Previously this sample project defined interfaces to use for all of this, I have recently removed them and
+created a separate library project that has the necessary interfaces. [trevjonez/Inject-Android](https://github.com/trevjonez/Inject-Android)
+
 The main idea here is that we have a general contract to follow when requesting component builders
 as well as when we define new components. Under most circumstances I prefer to directly annotate classes
 to expose them on the object graph and allow dagger to do all the heavy lifting. In the case of android
 activities and fragments we are not in control of creation thus the need to reach out and grab the necessary
 components.
 
-If you use fragments in your application you can replicate this patter some what. Typically what I have done
-is to create a `@FragmentKey` annotation, a `FragmentComponentBuilder` interface, and
-`FragmentComponentBuilderHost` interface. The fragment builder host is then implemented on activities
- that host fragments. From there you will create the sub component for your fragment following the same
-  pattern as the `MainActivityComponent` in this repo. You will also want to define a module for the
-  fragment that is intended as a reusable binding module for the fragment component.
-  Typically I refer to these modules as "Binders" which you can
-  then include on your host activities' component's `@Subcomponent` annotation as a module.
+If you use fragments in your application you can replicate this pattern some what. However rather than
+creating a scope based binder such as the `AppScopeActivityBinder` I recommend creating a fragment binder
+module for each fragment.
 
 A fragment binder would look something like:
 ```java
-@Module
+@Module(subcomponents = SomeFragmentComponent.class)
 public abstract class SomeFragmentBinder {
     @Binds
     @IntoMap
@@ -42,15 +40,15 @@ public interface SomeFragmentComponent extends PlainComponent<SomeFragment> {
 ```
 
 It is important to note that your multi bound map should be a map of class to provider of component builders.
-This will ensure that you are given a new instance for each component builder you request. This would look
+This will ensure that you are given a new instance for each component builder you request. This looks
 something like this:
 ```java
 @Inject
-Map<Class<? extends Fragment>, Provider<FragmentComponentBuilder>> fragmentBuilderMap;
+Map<Class<? extends Fragment>, Provider<FragmentComponentBuilder>> fcbMap;
 ```
 
-To include the fragment component as a sub component of you activity component you include the binder
-as module on the activity component
+To include the fragment component as a sub component of your activity component you include the binder
+as a module on the activity component
 ```java
 @Subcomponent(modules = {SomeFragmentBinder.class})
 public interface SomeActivityComponent extends PlainComponent<SomeActivity> {

@@ -20,7 +20,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
 import com.trevjonez.daggertest.R;
-import com.trevjonez.daggertest.dagger_base_types.ActivityComponentBuilderHost;
+import com.trevjonez.inject.activity.ActivityComponentBuilderHost;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        component = ((ActivityComponentBuilderHost) getApplication()).getComponentBuilder(MainActivity.class, MainActivityComponent.Builder.class).build();
+        component = ((ActivityComponentBuilderHost) getApplication()).getActivityComponentBuilder(MainActivity.class, MainActivityComponent.Builder.class).build();
         component.inject(this);
     }
 }

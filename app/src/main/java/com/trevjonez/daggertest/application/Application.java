@@ -18,8 +18,9 @@ package com.trevjonez.daggertest.application;
 
 import android.app.Activity;
 
-import com.trevjonez.daggertest.dagger_base_types.ActivityComponentBuilder;
-import com.trevjonez.daggertest.dagger_base_types.ActivityComponentBuilderHost;
+import com.trevjonez.inject.PlainComponent;
+import com.trevjonez.inject.activity.ActivityComponentBuilder;
+import com.trevjonez.inject.activity.ActivityComponentBuilderHost;
 
 import java.util.Map;
 
@@ -45,7 +46,8 @@ public class Application extends android.app.Application implements ActivityComp
     }
 
     @Override
-    public <ActivityType extends Activity, ComponentBuilderType extends ActivityComponentBuilder> ComponentBuilderType getComponentBuilder(Class<? extends ActivityType> key, Class<? extends ComponentBuilderType> builderType) {
-        return builderType.cast(componentBuilders.get(key).get());
+    public <A extends Activity, B extends ActivityComponentBuilder<A, ? extends PlainComponent<A>>>
+    B getActivityComponentBuilder(Class<A> activityKey, Class<B> builderType) {
+        return builderType.cast(componentBuilders.get(activityKey).get());
     }
 }
