@@ -14,11 +14,11 @@
  *    limitations under the License.
  */
 
-package com.trevjonez.daggertest.main_activity;
+package com.trevjonez.daggertest.fragment.fragment_one;
 
-import com.trevjonez.daggertest.fragment.MainActivityFragmentBinder;
+import com.trevjonez.daggertest.fragment.FragmentScope;
 import com.trevjonez.inject.PlainComponent;
-import com.trevjonez.inject.activity.ActivityComponentBuilder;
+import com.trevjonez.inject.fragment.FragmentComponentBuilder;
 
 import javax.inject.Named;
 
@@ -26,31 +26,26 @@ import dagger.Module;
 import dagger.Provides;
 import dagger.Subcomponent;
 
-/**
- * @author TrevJonez
- */
-@Subcomponent (modules= {
-        MainActivityFragmentBinder.class,
-        MainActivityComponent.MainActivityModule.class
-})
-@MainActivityScope
-public interface MainActivityComponent extends PlainComponent<MainActivity> {
+@Subcomponent (modules=FragmentOneComponent.FragmentOneModule.class)
+@FragmentScope
+public interface FragmentOneComponent extends PlainComponent<FragmentOne> {
 
     @Subcomponent.Builder
-    interface Builder extends ActivityComponentBuilder<MainActivity, MainActivityComponent> {
-        Builder activityModule(MainActivityModule module);
+    interface Builder extends FragmentComponentBuilder<FragmentOne, FragmentOneComponent> {
+        Builder fragmentModule(FragmentOneModule module);
     }
 
     @Module
-    class MainActivityModule{
+    class FragmentOneModule{
         String text;
-        public MainActivityModule(String text) {
+        public FragmentOneModule(String text) {
             this.text=text;
         }
 
-        @Provides @MainActivityScope @Named("TextMainActivity")
+        @Provides @FragmentScope @Named("TextFragmentOne")
         public String provideActivityText() {
             return text;
         }
     }
 }
+
