@@ -45,15 +45,14 @@ public class MainActivity extends AppCompatActivity implements FragmentComponent
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        textView= (TextView) findViewById(R.id.textView_mainActivity);
-
         component = ((ActivityComponentBuilderHost) getApplication())
                 .getActivityComponentBuilder(MainActivity.class, MainActivityComponent.Builder.class)
                 .activityModule(new ActivityTextModule("Text from MainActivity"))
                 .build();
         component.inject(this);
 
+        setContentView(R.layout.activity_main);
+        textView= (TextView) findViewById(R.id.textView_mainActivity);
 
         textView.setText(textMainActivity);
 
