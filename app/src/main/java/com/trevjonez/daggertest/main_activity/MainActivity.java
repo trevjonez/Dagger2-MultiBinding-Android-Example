@@ -32,7 +32,6 @@ import com.trevjonez.inject.fragment.FragmentComponentBuilderHost;
 import java.util.Map;
 
 import javax.inject.Inject;
-import javax.inject.Named;
 import javax.inject.Provider;
 
 public class MainActivity extends AppCompatActivity implements FragmentComponentBuilderHost{
@@ -41,7 +40,7 @@ public class MainActivity extends AppCompatActivity implements FragmentComponent
     MainActivityComponent component;
     @Inject
     Map<Class<? extends Fragment>, Provider<FragmentComponentBuilder>> fragmentComponentBuilderMap;
-    @Inject @Named("TextMainActivity") String textMainActivity;
+    @Inject @ActivityText String textMainActivity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +50,7 @@ public class MainActivity extends AppCompatActivity implements FragmentComponent
 
         component = ((ActivityComponentBuilderHost) getApplication())
                 .getActivityComponentBuilder(MainActivity.class, MainActivityComponent.Builder.class)
-                .activityModule(new MainActivityComponent.MainActivityModule("Text from MainActivity"))
+                .activityModule(new ActivityTextModule("Text from MainActivity"))
                 .build();
         component.inject(this);
 

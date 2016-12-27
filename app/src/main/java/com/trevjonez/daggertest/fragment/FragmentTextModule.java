@@ -14,21 +14,20 @@
  *    limitations under the License.
  */
 
-package com.trevjonez.daggertest.fragment.fragment_one;
+package com.trevjonez.daggertest.fragment;
 
-import com.trevjonez.daggertest.fragment.FragmentTextModule;
-import com.trevjonez.inject.PlainComponent;
-import com.trevjonez.inject.fragment.FragmentComponentBuilder;
+import dagger.Module;
+import dagger.Provides;
 
-import dagger.Subcomponent;
-
-@Subcomponent (modules=FragmentTextModule.class)
-public interface FragmentOneComponent extends PlainComponent<FragmentOne> {
-
-    @Subcomponent.Builder
-    interface Builder extends FragmentComponentBuilder<FragmentOne, FragmentOneComponent> {
-        Builder fragmentModule(FragmentTextModule module);
+@Module
+public class FragmentTextModule {
+    private final String text;
+    public FragmentTextModule(String text) {
+        this.text=text;
     }
 
+    @Provides @FragmentText
+    public String provideActivityText() {
+        return text;
+    }
 }
-

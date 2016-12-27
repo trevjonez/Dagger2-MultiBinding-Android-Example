@@ -25,23 +25,25 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.trevjonez.daggertest.R;
+import com.trevjonez.daggertest.fragment.FragmentText;
+import com.trevjonez.daggertest.fragment.FragmentTextModule;
+import com.trevjonez.daggertest.main_activity.ActivityText;
 import com.trevjonez.inject.fragment.FragmentComponentBuilderHost;
 
 import javax.inject.Inject;
-import javax.inject.Named;
 
 public class FragmentTwo extends Fragment {
     TextView textView;
 
     FragmentTwoComponent component;
-    @Inject @Named("TextFragmentTwo") String textFragmentTwo;
-    @Inject @Named("TextMainActivity") String textMainActivity;
+    @Inject @FragmentText String textFragmentTwo;
+    @Inject @ActivityText String textMainActivity;
 
     @Override public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         component = ((FragmentComponentBuilderHost) getActivity())
                 .getFragmentComponentBuilder(FragmentTwo.class, FragmentTwoComponent.Builder.class)
-                .fragmentModule(new FragmentTwoComponent.FragmentTwoModule("Text from FragmentTwo"))
+                .fragmentModule(new FragmentTextModule("Text from FragmentTwo"))
                 .build();
         component.inject(this);
     }

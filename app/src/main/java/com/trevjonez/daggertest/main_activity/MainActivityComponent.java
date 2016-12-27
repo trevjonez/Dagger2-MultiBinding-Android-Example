@@ -20,10 +20,6 @@ import com.trevjonez.daggertest.fragment.MainActivityFragmentBinder;
 import com.trevjonez.inject.PlainComponent;
 import com.trevjonez.inject.activity.ActivityComponentBuilder;
 
-import javax.inject.Named;
-
-import dagger.Module;
-import dagger.Provides;
 import dagger.Subcomponent;
 
 /**
@@ -31,26 +27,13 @@ import dagger.Subcomponent;
  */
 @Subcomponent (modules= {
         MainActivityFragmentBinder.class,
-        MainActivityComponent.MainActivityModule.class
+        ActivityTextModule.class
 })
 @MainActivityScope
 public interface MainActivityComponent extends PlainComponent<MainActivity> {
 
     @Subcomponent.Builder
     interface Builder extends ActivityComponentBuilder<MainActivity, MainActivityComponent> {
-        Builder activityModule(MainActivityModule module);
-    }
-
-    @Module
-    class MainActivityModule{
-        String text;
-        public MainActivityModule(String text) {
-            this.text=text;
-        }
-
-        @Provides @MainActivityScope @Named("TextMainActivity")
-        public String provideActivityText() {
-            return text;
-        }
+        Builder activityModule(ActivityTextModule module);
     }
 }

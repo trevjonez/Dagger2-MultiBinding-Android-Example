@@ -16,33 +16,17 @@
 
 package com.trevjonez.daggertest.fragment.fragment_two;
 
+import com.trevjonez.daggertest.fragment.FragmentTextModule;
 import com.trevjonez.inject.PlainComponent;
 import com.trevjonez.inject.fragment.FragmentComponentBuilder;
 
-import javax.inject.Named;
-
-import dagger.Module;
-import dagger.Provides;
 import dagger.Subcomponent;
 
-@Subcomponent (modules = FragmentTwoComponent.FragmentTwoModule.class)
+@Subcomponent (modules = FragmentTextModule.class)
 public interface FragmentTwoComponent extends PlainComponent<FragmentTwo> {
 
     @Subcomponent.Builder
     interface Builder extends FragmentComponentBuilder<FragmentTwo, FragmentTwoComponent> {
-        Builder fragmentModule(FragmentTwoModule module);
-    }
-
-    @Module
-    class FragmentTwoModule{
-        String text;
-        public FragmentTwoModule(String text) {
-            this.text=text;
-        }
-
-        @Provides @Named("TextFragmentTwo")
-        public String provideActivityText() {
-            return text;
-        }
+        Builder fragmentModule(FragmentTextModule module);
     }
 }

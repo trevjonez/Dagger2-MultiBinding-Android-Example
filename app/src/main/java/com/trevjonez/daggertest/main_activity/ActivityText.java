@@ -14,21 +14,17 @@
  *    limitations under the License.
  */
 
-package com.trevjonez.daggertest.fragment.fragment_one;
+package com.trevjonez.daggertest.main_activity;
 
-import com.trevjonez.daggertest.fragment.FragmentTextModule;
-import com.trevjonez.inject.PlainComponent;
-import com.trevjonez.inject.fragment.FragmentComponentBuilder;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
-import dagger.Subcomponent;
+import javax.inject.Qualifier;
 
-@Subcomponent (modules=FragmentTextModule.class)
-public interface FragmentOneComponent extends PlainComponent<FragmentOne> {
-
-    @Subcomponent.Builder
-    interface Builder extends FragmentComponentBuilder<FragmentOne, FragmentOneComponent> {
-        Builder fragmentModule(FragmentTextModule module);
-    }
-
+@Qualifier
+@Retention(RetentionPolicy.RUNTIME)
+@Target({ElementType.METHOD, ElementType.FIELD})
+public @interface ActivityText {
 }
-
