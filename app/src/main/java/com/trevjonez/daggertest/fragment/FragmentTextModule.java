@@ -14,26 +14,20 @@
  *    limitations under the License.
  */
 
-apply plugin: 'com.android.application'
+package com.trevjonez.daggertest.fragment;
 
-android {
-    compileSdkVersion 25
-    buildToolsVersion "25.0.2"
+import dagger.Module;
+import dagger.Provides;
 
-    defaultConfig {
-        applicationId "com.trevjonez.daggertest"
-        minSdkVersion 16
-        targetSdkVersion 25
-        versionCode 1
-        versionName "1.0"
+@Module
+public class FragmentTextModule {
+    private final String text;
+    public FragmentTextModule(String text) {
+        this.text=text;
     }
-}
 
-dependencies {
-    compile 'com.android.support:appcompat-v7:25.1.0'
-
-    compile 'com.github.trevjonez:Inject-Android:0.2.0'
-
-    compile 'com.google.dagger:dagger:2.8'
-    annotationProcessor 'com.google.dagger:dagger-compiler:2.8'
+    @Provides @FragmentText
+    public String provideActivityText() {
+        return text;
+    }
 }
