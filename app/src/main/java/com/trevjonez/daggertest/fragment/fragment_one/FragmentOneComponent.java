@@ -16,7 +16,6 @@
 
 package com.trevjonez.daggertest.fragment.fragment_one;
 
-import com.trevjonez.daggertest.fragment.FragmentScope;
 import com.trevjonez.inject.PlainComponent;
 import com.trevjonez.inject.fragment.FragmentComponentBuilder;
 
@@ -27,7 +26,6 @@ import dagger.Provides;
 import dagger.Subcomponent;
 
 @Subcomponent (modules=FragmentOneComponent.FragmentOneModule.class)
-@FragmentScope
 public interface FragmentOneComponent extends PlainComponent<FragmentOne> {
 
     @Subcomponent.Builder
@@ -42,7 +40,7 @@ public interface FragmentOneComponent extends PlainComponent<FragmentOne> {
             this.text=text;
         }
 
-        @Provides @FragmentScope @Named("TextFragmentOne")
+        @Provides @Named("TextFragmentOne")
         public String provideActivityText() {
             return text;
         }

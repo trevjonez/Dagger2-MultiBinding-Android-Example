@@ -16,7 +16,6 @@
 
 package com.trevjonez.daggertest.fragment.fragment_two;
 
-import com.trevjonez.daggertest.fragment.FragmentScope;
 import com.trevjonez.inject.PlainComponent;
 import com.trevjonez.inject.fragment.FragmentComponentBuilder;
 
@@ -27,7 +26,6 @@ import dagger.Provides;
 import dagger.Subcomponent;
 
 @Subcomponent (modules = FragmentTwoComponent.FragmentTwoModule.class)
-@FragmentScope
 public interface FragmentTwoComponent extends PlainComponent<FragmentTwo> {
 
     @Subcomponent.Builder
@@ -42,7 +40,7 @@ public interface FragmentTwoComponent extends PlainComponent<FragmentTwo> {
             this.text=text;
         }
 
-        @Provides @FragmentScope @Named("TextFragmentTwo")
+        @Provides @Named("TextFragmentTwo")
         public String provideActivityText() {
             return text;
         }
