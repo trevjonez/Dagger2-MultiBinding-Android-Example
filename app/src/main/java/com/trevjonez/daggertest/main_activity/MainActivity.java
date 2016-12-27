@@ -16,14 +16,12 @@
 
 package com.trevjonez.daggertest.main_activity;
 
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
 import com.trevjonez.daggertest.R;
-import com.trevjonez.daggertest.fragment.fragment_one.FragmentOne;
-import com.trevjonez.daggertest.fragment.fragment_two.FragmentTwo;
 import com.trevjonez.inject.PlainComponent;
 import com.trevjonez.inject.activity.ActivityComponentBuilderHost;
 import com.trevjonez.inject.fragment.FragmentComponentBuilder;
@@ -53,14 +51,7 @@ public class MainActivity extends AppCompatActivity implements FragmentComponent
 
         setContentView(R.layout.activity_main);
         textView= (TextView) findViewById(R.id.textView_mainActivity);
-
         textView.setText(textMainActivity);
-
-        getFragmentManager()
-                .beginTransaction()
-                .add(R.id.fragmentLayout_fragmentOne,new FragmentOne())
-                .add(R.id.fragmentLayout_fragmentTwo,new FragmentTwo())
-                .commit();
     }
 
     @Override

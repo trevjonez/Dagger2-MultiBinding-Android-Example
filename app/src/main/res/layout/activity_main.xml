@@ -19,7 +19,7 @@
         android:textSize="16sp"/>
 
 
-    <LinearLayout
+    <fragment
         android:id="@+id/fragmentLayout_fragmentOne"
         android:name="com.trevjonez.daggertest.fragment.fragment_one.FragmentOne"
         android:layout_width="match_parent"
@@ -29,7 +29,7 @@
         android:orientation="horizontal"
         tools:layout="@layout/fragment_one"/>
 
-    <LinearLayout
+    <fragment
         android:id="@+id/fragmentLayout_fragmentTwo"
         android:name="com.trevjonez.daggertest.fragment.fragment_two.FragmentTwo"
         android:layout_width="match_parent"
