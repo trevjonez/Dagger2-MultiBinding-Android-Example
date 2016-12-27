@@ -39,20 +39,17 @@ public class FragmentTwo extends Fragment {
     @Inject @FragmentText String textFragmentTwo;
     @Inject @ActivityText String textMainActivity;
 
-    @Override public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    @Nullable @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        super.onCreateView(inflater, container, savedInstanceState);
         component = ((FragmentComponentBuilderHost) getActivity())
                 .getFragmentComponentBuilder(FragmentTwo.class, FragmentTwoComponent.Builder.class)
                 .fragmentModule(new FragmentTextModule("Text from FragmentTwo"))
                 .build();
         component.inject(this);
-    }
 
-    @Nullable @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        super.onCreateView(inflater, container, savedInstanceState);
         View view = inflater.inflate(R.layout.fragment_two, container, false);
-        textView= (TextView) view.findViewById(R.id.textView_fragmentTwo);
+        textView = (TextView) view.findViewById(R.id.textView_fragmentTwo);
         return view;
     }
 
