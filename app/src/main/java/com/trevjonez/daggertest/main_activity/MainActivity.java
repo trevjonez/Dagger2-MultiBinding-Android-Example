@@ -16,22 +16,46 @@
 
 package com.trevjonez.daggertest.main_activity;
 
+import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.TextView;
 
 import com.trevjonez.daggertest.R;
+import com.trevjonez.inject.PlainComponent;
 import com.trevjonez.inject.activity.ActivityComponentBuilderHost;
+import com.trevjonez.inject.fragment.FragmentComponentBuilder;
+import com.trevjonez.inject.fragment.FragmentComponentBuilderHost;
 
-public class MainActivity extends AppCompatActivity {
+import java.util.Map;
+
+import javax.inject.Inject;
+import javax.inject.Provider;
+
+public class MainActivity extends AppCompatActivity implements FragmentComponentBuilderHost{
+    TextView textView;
 
     MainActivityComponent component;
+    @Inject
+    Map<Class<? extends Fragment>, Provider<FragmentComponentBuilder>> fragmentComponentBuilderMap;
+    @Inject @ActivityText String textMainActivity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-        component = ((ActivityComponentBuilderHost) getApplication()).getActivityComponentBuilder(MainActivity.class, MainActivityComponent.Builder.class).build();
+        component = ((ActivityComponentBuilderHost) getApplication())
+                .getActivityComponentBuilder(MainActivity.class, MainActivityComponent.Builder.class)
+                .activityModule(new ActivityTextModule("Text from MainActivity"))
+                .build();
         component.inject(this);
+
+        setContentView(R.layout.activity_main);
+        textView= (TextView) findViewById(R.id.textView_mainActivity);
+        textView.setText(textMainActivity);
+    }
+
+    @Override
+    public <F extends Fragment, B extends FragmentComponentBuilder<F, ? extends PlainComponent<F>>> B getFragmentComponentBuilder(Class<F> fragmentKey, Class<B> builderType) {
+        return builderType.cast(fragmentComponentBuilderMap.get(fragmentKey).get());
     }
 }

@@ -14,26 +14,17 @@
  *    limitations under the License.
  */
 
-apply plugin: 'com.android.application'
+package com.trevjonez.daggertest.main_activity;
 
-android {
-    compileSdkVersion 25
-    buildToolsVersion "25.0.2"
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
-    defaultConfig {
-        applicationId "com.trevjonez.daggertest"
-        minSdkVersion 16
-        targetSdkVersion 25
-        versionCode 1
-        versionName "1.0"
-    }
-}
+import javax.inject.Qualifier;
 
-dependencies {
-    compile 'com.android.support:appcompat-v7:25.1.0'
-
-    compile 'com.github.trevjonez:Inject-Android:0.2.0'
-
-    compile 'com.google.dagger:dagger:2.8'
-    annotationProcessor 'com.google.dagger:dagger-compiler:2.8'
+@Qualifier
+@Retention(RetentionPolicy.RUNTIME)
+@Target({ElementType.METHOD, ElementType.FIELD})
+public @interface ActivityText {
 }

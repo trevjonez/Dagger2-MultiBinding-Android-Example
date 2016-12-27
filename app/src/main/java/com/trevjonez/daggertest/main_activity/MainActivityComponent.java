@@ -16,6 +16,7 @@
 
 package com.trevjonez.daggertest.main_activity;
 
+import com.trevjonez.daggertest.fragment.MainActivityFragmentBinder;
 import com.trevjonez.inject.PlainComponent;
 import com.trevjonez.inject.activity.ActivityComponentBuilder;
 
@@ -24,10 +25,15 @@ import dagger.Subcomponent;
 /**
  * @author TrevJonez
  */
-@Subcomponent
+@Subcomponent (modules= {
+        MainActivityFragmentBinder.class,
+        ActivityTextModule.class
+})
 @MainActivityScope
 public interface MainActivityComponent extends PlainComponent<MainActivity> {
 
     @Subcomponent.Builder
-    interface Builder extends ActivityComponentBuilder<MainActivity, MainActivityComponent> { }
+    interface Builder extends ActivityComponentBuilder<MainActivity, MainActivityComponent> {
+        Builder activityModule(ActivityTextModule module);
+    }
 }
